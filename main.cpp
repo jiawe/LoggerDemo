@@ -11,6 +11,7 @@ CLogger logger(LogLevel_Info, CLogger::GetAppPathA().append("log\\"),false);
 int main()
 {
     std::cout << "Hello World!\n";
+	logger.InsertVerInfo();
 	logger.TraceFatal("TraceFatal汉字如何 %d", 1);
 	logger.TraceError("RraceError %s", "sun不知道");
 	logger.TraceWarning("Warning");

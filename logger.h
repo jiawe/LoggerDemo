@@ -67,6 +67,7 @@ namespace LOGGER
 		//析构函数
 		virtual ~CLogger();
 	public:
+		void InsertVerInfo(const std::string moduleName="");
 		//写严重错误信息
 		void TraceFatal(const char *lpcszFormat, ...);
 		void TraceFatal(const wchar_t *lpcszFormat, ...);

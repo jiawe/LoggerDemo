@@ -140,6 +140,11 @@ namespace LOGGER
 		}
 	}
 
+	void CLogger::InsertVerInfo(const std::string moduleName)
+	{
+		TraceFatal("%s -- %s %s",moduleName.c_str(),(char*)__DATE__,(char*)__TIME__);
+	}
+
 	//文件全路径得到文件名
 	const char *CLogger::path_file(const char *path, char splitter)
 	{
