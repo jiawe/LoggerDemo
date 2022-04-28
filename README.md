@@ -3,6 +3,11 @@
 2. 将log文件打开方式改为非独占，方便运行时查看
 3. 添加控制log个数的方法，当前默认最多存20个就会删除更旧的
 4. 添加可选加密方案，默认使用RC4,可更换别的加密方案
+5. 适配linux系统
+
+# 此分支添加C++11单例模式使用方法
+1. #include "Logger.h"
+2. LOGGER::CLogger::getInstance().TraceInfo("Hello");
 # LoggerDemo
 CLogger Class,Win32
 /*
