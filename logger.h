@@ -34,7 +34,15 @@ Error	2016-01-26 10:13:29 TraceError sun2
 
 #ifndef _LOGGER_H_
 #define _LOGGER_H_
+
+#ifdef __linux__
+#include <pthread.h>
+#else
 #include <Windows.h>
+#include <direct.h>
+#include <Dbghelp.h>
+#include <io.h>
+#endif
 #include <stdio.h>
 #include <string>
 namespace LOGGER
@@ -66,6 +74,11 @@ namespace LOGGER
 		CLogger(EnumLogLevel nLogLevel = EnumLogLevel::LogLevel_Info, const std::string strLogPath = "", bool encrypt = false, const std::string strLogName = "");
 		//析构函数
 		virtual ~CLogger();
+        static CLogger& getInstance()
+                {
+                static CLogger logger(LogLevel_Info, CLogger::GetAppPathA().append("log1/"),false);
+                return logger;
+            }
 	public:
 		void InsertVerInfo(const std::string moduleName="");
 		//写严重错误信息
@@ -106,8 +119,12 @@ namespace LOGGER
 		std::string m_strLogFilePath;
 		bool m_isEncrypt;
 		//线程同步的临界区变量
-		CRITICAL_SECTION m_cs;
-	};
+		#ifdef __linux__
+			pthread_mutex_t   m_cs;
+		#else
+			CRITICAL_SECTION m_cs;
+		#endif
+    };
  }
 
 #endif

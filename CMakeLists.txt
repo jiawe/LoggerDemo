@@ -16,6 +16,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/Lib)
 #lib生成目录
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/Lib)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+SET(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/Lib)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -45,15 +47,17 @@ target_include_directories( ${PROJECT_NAME}_test
         ${PROJECT_SOURCE_DIR}
 )
 
+IF(CMAKE_SYSTEM_NAME MATCHES "Linux")
 target_link_libraries( ${PROJECT_NAME}_test
     PRIVATE 
-    ${PROJECT_SOURCE_DIR}/build/${PROJECT_NAME}.lib
+        ${PROJECT_SOURCE_DIR}/build/Lib/lib${PROJECT_NAME}.a
 )
-
-# target_link_libraries( "test" 
-#     PRIVATE 
-#     ${PROJECT_SOURCE_DIR}/build/librhlog.a
-# )
+ELSEIF(CMAKE_SYSTEM_NAME MATCHES "Windows")
+target_link_libraries( ${PROJECT_NAME}_test
+    PRIVATE 
+    ${PROJECT_SOURCE_DIR}/build/Lib/${PROJECT_NAME}.lib
+)
+ENDIF()
 
 
 #动态库
