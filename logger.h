@@ -76,7 +76,7 @@ namespace LOGGER
 		virtual ~CLogger();
         static CLogger& getInstance()
                 {
-                static CLogger logger(LogLevel_Info, CLogger::GetAppPathA().append("log1/"),false);
+                static CLogger logger(LogLevel_Info, CLogger::GetAppPathA().append("log22"),false);
                 return logger;
             }
 	public:
